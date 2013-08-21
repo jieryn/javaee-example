@@ -17,7 +17,7 @@ import com.acme.javaee.domain.Post;
 
 @Path("/post")
 @Produces({ "text/xml", "application/json" })
-public final class PostService
+public class PostService
 {
   @EJB
   private PostDAO dao;

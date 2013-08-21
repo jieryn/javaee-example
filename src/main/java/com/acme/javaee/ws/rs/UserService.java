@@ -17,7 +17,7 @@ import com.acme.javaee.domain.User;
 
 @Path("/user")
 @Produces({ "text/xml", "application/json" })
-public final class UserService
+public class UserService
 {
   @EJB
   private UserDAO dao;

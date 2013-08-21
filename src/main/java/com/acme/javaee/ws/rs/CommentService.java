@@ -17,7 +17,7 @@ import com.acme.javaee.domain.Comment;
 
 @Path("/comment")
 @Produces({ "text/xml", "application/json" })
-public final class CommentService
+public class CommentService
 {
   @EJB
   private CommentDAO commentDao;

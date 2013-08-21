@@ -7,7 +7,7 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 
 @ApplicationPath("/api")
-public final class Application extends javax.ws.rs.core.Application
+public class Application extends javax.ws.rs.core.Application
 {
   @Override
   public Set<Class<?>> getClasses()
