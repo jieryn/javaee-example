@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.acme</groupId>
   <artifactId>javaee</artifactId>
@@ -8,6 +9,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <openejb.version>4.6.0-SNAPSHOT</openejb.version>
+    <tomee.version>1.6.0-SNAPSHOT</tomee.version>
   </properties>
 
   <repositories>
@@ -41,7 +44,7 @@
     <dependency>
       <groupId>org.apache.openejb</groupId>
       <artifactId>arquillian-tomee-embedded</artifactId>
-      <version>1.6.0-SNAPSHOT</version>
+      <version>${tomee.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -53,25 +56,25 @@
     <dependency>
       <groupId>org.apache.openejb</groupId>
       <artifactId>openejb-core</artifactId>
-      <version>4.6.0-SNAPSHOT</version>
+      <version>${openejb.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.openejb</groupId>
       <artifactId>openejb-cxf-rs</artifactId>
-      <version>4.6.0-SNAPSHOT</version>
+      <version>${openejb.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.openejb</groupId>
       <artifactId>tomee-embedded</artifactId>
-      <version>1.6.0-SNAPSHOT</version>
+      <version>${tomee.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.openejb</groupId>
       <artifactId>tomee-jaxrs</artifactId>
-      <version>1.6.0-SNAPSHOT</version>
+      <version>${tomee.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -101,27 +104,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>openjpa-maven-plugin</artifactId>
-        <version>1.2</version>
-        <executions>
-          <execution>
-            <phase>process-classes</phase>
-            <goals>
-              <goal>enhance</goal>
-            </goals>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.openjpa</groupId>
-            <artifactId>openjpa-persistence</artifactId>
-            <version>2.2.0</version>
-            <scope>runtime</scope>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.15</version>
         <configuration>
@@ -141,6 +123,38 @@
         <configuration>
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.openejb.maven</groupId>
+        <artifactId>tomee-maven-plugin</artifactId>
+        <version>${tomee.version}</version>
+        <configuration>
+          <password>tomee</password>
+          <tomeeClassifier>plus</tomeeClassifier>
+          <tomeeVersion>${tomee.version}</tomeeVersion>
+          <user>tomee</user>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>openjpa-maven-plugin</artifactId>
+        <version>1.2</version>
+        <executions>
+          <execution>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>enhance</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.openjpa</groupId>
+            <artifactId>openjpa-persistence</artifactId>
+            <version>2.2.0</version>
+            <scope>runtime</scope>
+          </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>
