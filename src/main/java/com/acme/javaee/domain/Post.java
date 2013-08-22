@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.validation.Valid;
@@ -18,8 +16,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@NamedQueries({ @NamedQuery(name = "post.list", query = "select p from Post p") })
-@XmlRootElement(name = "post")
+@XmlRootElement
 public class Post extends Model
 {
   @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)

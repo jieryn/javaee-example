@@ -27,22 +27,22 @@ public abstract class Model
   @Transient
   private Long version;
 
-  public final Long getId()
+  public Long getId()
   {
     return id;
   }
 
-  public final Long getVersion()
+  public Long getVersion()
   {
     return version;
   }
 
-  public final void setId(final Long id)
+  public void setId(final Long id)
   {
     this.id = id;
   }
 
-  public final void setVersion(final Long version)
+  public void setVersion(final Long version)
   {
     this.version = version;
   }
