@@ -43,7 +43,9 @@ public class PostDAOTest
   @Test
   public void testCreate1()
   {
-    Assert.assertNotNull(postDAO.create("title", "content", 1));
+    Assert.assertNotNull(postDAO.create("title1", "content1", 1));
+    Assert.assertNotNull(postDAO.create("title2", "content2", 2));
+    Assert.assertNotNull(postDAO.create("title3", "content3", 3));
   }
 
   @Test
@@ -53,6 +55,19 @@ public class PostDAOTest
 
     Assert.assertNotNull(result);
     Assert.assertEquals(0, result.size());
+  }
+
+  @Test
+  public void testFindAll2()
+  {
+    Assert.assertNotNull(postDAO.create("title1", "content1", 1));
+    Assert.assertNotNull(postDAO.create("title2", "content2", 2));
+    Assert.assertNotNull(postDAO.create("title3", "content3", 3));
+
+    final List<Post> result = postDAO.findAll();
+
+    Assert.assertNotNull(result);
+    Assert.assertEquals(3, result.size());
   }
 
   @Test
