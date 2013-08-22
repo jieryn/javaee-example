@@ -1,10 +1,9 @@
 package com.acme.javaee.dao;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Logger;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,20 +12,31 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
+import com.acme.javaee.domain.Model;
+
 @Stateless
-public class DAO
+public class DAO<T extends Model>
 {
-  private static final Logger LOG = Logger.getLogger(DAO.class.getName());
+  private final Class<T> entityBeanType;
 
   @PersistenceContext
-  private EntityManager       entityManager;
+  private EntityManager  entityManager;
+
+  @SuppressWarnings("unchecked")
+  protected DAO()
+  {
+    super();
+
+    entityBeanType = (Class<T>) ((ParameterizedType) getClass()
+        .getGenericSuperclass()).getActualTypeArguments()[0];
+  }
 
   public void clear()
   {
     entityManager.clear();
   }
 
-  public <T> T create(final T entity)
+  public T create(final T entity)
   {
     Objects.requireNonNull(entity);
 
@@ -34,15 +44,14 @@ public class DAO
     return entity;
   }
 
-  protected <T> CriteriaQuery<T> createCriteriaQuery(
-      final Class<T> entityBeanType, final CriteriaBuilder builder)
+  protected CriteriaQuery<T> createCriteriaQuery(final CriteriaBuilder builder)
   {
     Objects.requireNonNull(builder);
 
     return builder.createQuery(entityBeanType);
   }
 
-  protected <T> TypedQuery<T> createQuery(final CriteriaQuery<T> criteriaQuery)
+  protected TypedQuery<T> createQuery(final CriteriaQuery<T> criteriaQuery)
   {
     Objects.requireNonNull(criteriaQuery);
 
@@ -56,12 +65,12 @@ public class DAO
     return entityManager.createQuery(qlString);
   }
 
-  public <T> T delete(final Class<T> entityBeanType, final long id)
+  public T delete(final Long id)
   {
-    return delete(findById(entityBeanType, id));
+    return delete(findById(id));
   }
 
-  public <T> T delete(final T entity)
+  public T delete(final T entity)
   {
     Objects.requireNonNull(entity);
 
@@ -69,18 +78,12 @@ public class DAO
     return entity;
   }
 
-  @PostConstruct
-  public void doPostConstruct()
-  {
-    LOG.info("DAO: " + entityManager);
-  }
-
-  public <E> E find(final Class<E> clazz, final long id)
+  public <E> E find(final Class<E> clazz, final Long id)
   {
     return entityManager.find(clazz, id);
   }
 
-  public <T> List<T> findAll(final Class<T> entityBeanType)
+  public List<T> findAll()
   {
     final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
     final CriteriaQuery<T> query = builder.createQuery(entityBeanType);
@@ -89,7 +92,7 @@ public class DAO
         .getResultList();
   }
 
-  public <T> T findById(final Class<T> entityBeanType, final Long id)
+  public T findById(final Long id)
   {
     Objects.requireNonNull(id);
 
@@ -101,7 +104,7 @@ public class DAO
     entityManager.flush();
   }
 
-  public <T> T refresh(final T entity)
+  public T refresh(final T entity)
   {
     Objects.requireNonNull(entity);
 
@@ -109,7 +112,7 @@ public class DAO
     return entity;
   }
 
-  public <T> T update(final T entity)
+  public T update(final T entity)
   {
     Objects.requireNonNull(entity);
 

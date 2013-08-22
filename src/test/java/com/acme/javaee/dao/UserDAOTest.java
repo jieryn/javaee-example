@@ -47,18 +47,18 @@ public class UserDAOTest
   }
 
   @Test
-  public void testFind1()
-  {
-    Assert.assertNull(userDAO.find(-1));
-  }
-
-  @Test
   public void testFindAll1()
   {
     final List<User> result = userDAO.findAll();
 
     Assert.assertNotNull(result);
     Assert.assertEquals(0, result.size());
+  }
+
+  @Test
+  public void testFindById1()
+  {
+    Assert.assertNull(userDAO.findById(-1L));
   }
 
   @Test

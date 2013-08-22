@@ -49,7 +49,7 @@ public class PostService
   @GET
   public Post show(@PathParam("id") final long id)
   {
-    return dao.find(id);
+    return dao.findById(id);
   }
 
   @Path("/update/{id}")

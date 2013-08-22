@@ -48,7 +48,7 @@ public class UserService
   @GET
   public User show(@PathParam("id") final long id)
   {
-    return dao.find(id);
+    return dao.findById(id);
   }
 
   @Path("/update/{id}")

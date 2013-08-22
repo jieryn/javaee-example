@@ -47,18 +47,18 @@ public class PostDAOTest
   }
 
   @Test
-  public void testFind1()
-  {
-    Assert.assertNull(postDAO.find(-1));
-  }
-
-  @Test
   public void testFindAll1()
   {
     final List<Post> result = postDAO.findAll();
 
     Assert.assertNotNull(result);
     Assert.assertEquals(0, result.size());
+  }
+
+  @Test
+  public void testFindById1()
+  {
+    Assert.assertNull(postDAO.findById(-1L));
   }
 
   @Test
