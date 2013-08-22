@@ -21,12 +21,12 @@ public class DAO
   @PersistenceContext
   private EntityManager       entityManager;
 
-  public final void clear()
+  public void clear()
   {
     entityManager.clear();
   }
 
-  public final <T> T create(final T entity)
+  public <T> T create(final T entity)
   {
     Objects.requireNonNull(entity);
 
@@ -34,7 +34,7 @@ public class DAO
     return entity;
   }
 
-  protected final <T> CriteriaQuery<T> createCriteriaQuery(
+  protected <T> CriteriaQuery<T> createCriteriaQuery(
       final Class<T> entityBeanType, final CriteriaBuilder builder)
   {
     Objects.requireNonNull(builder);
@@ -42,27 +42,26 @@ public class DAO
     return builder.createQuery(entityBeanType);
   }
 
-  protected final <T> TypedQuery<T> createQuery(
-      final CriteriaQuery<T> criteriaQuery)
+  protected <T> TypedQuery<T> createQuery(final CriteriaQuery<T> criteriaQuery)
   {
     Objects.requireNonNull(criteriaQuery);
 
     return entityManager.createQuery(criteriaQuery);
   }
 
-  protected final Query createQuery(final String qlString)
+  protected Query createQuery(final String qlString)
   {
     Objects.requireNonNull(qlString);
 
     return entityManager.createQuery(qlString);
   }
 
-  public final <T> T delete(final Class<T> entityBeanType, final long id)
+  public <T> T delete(final Class<T> entityBeanType, final long id)
   {
     return delete(findById(entityBeanType, id));
   }
 
-  public final <T> T delete(final T entity)
+  public <T> T delete(final T entity)
   {
     Objects.requireNonNull(entity);
 
@@ -76,12 +75,12 @@ public class DAO
     LOG.info("DAO: " + entityManager);
   }
 
-  public final <E> E find(final Class<E> clazz, final long id)
+  public <E> E find(final Class<E> clazz, final long id)
   {
     return entityManager.find(clazz, id);
   }
 
-  public final <T> List<T> findAll(final Class<T> entityBeanType)
+  public <T> List<T> findAll(final Class<T> entityBeanType)
   {
     final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
     final CriteriaQuery<T> query = builder.createQuery(entityBeanType);
@@ -90,19 +89,19 @@ public class DAO
         .getResultList();
   }
 
-  public final <T> T findById(final Class<T> entityBeanType, final Long id)
+  public <T> T findById(final Class<T> entityBeanType, final Long id)
   {
     Objects.requireNonNull(id);
 
     return entityManager.find(entityBeanType, id);
   }
 
-  public final void flush()
+  public void flush()
   {
     entityManager.flush();
   }
 
-  public final <T> T refresh(final T entity)
+  public <T> T refresh(final T entity)
   {
     Objects.requireNonNull(entity);
 
@@ -110,7 +109,7 @@ public class DAO
     return entity;
   }
 
-  public final <T> T update(final T entity)
+  public <T> T update(final T entity)
   {
     Objects.requireNonNull(entity);
 
