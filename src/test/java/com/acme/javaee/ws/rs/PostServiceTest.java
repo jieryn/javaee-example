@@ -7,6 +7,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -22,6 +23,7 @@ import com.acme.javaee.domain.Model;
 import com.acme.javaee.domain.Post;
 
 @RunWith(Arquillian.class)
+@Transactional
 public class PostServiceTest
 {
   private static final Logger LOG = Logger.getLogger(PostServiceTest.class
