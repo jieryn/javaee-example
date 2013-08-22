@@ -3,6 +3,7 @@ package com.acme.javaee.ws.rs;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.Singleton;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -17,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import com.acme.javaee.dao.PostDAO;
 import com.acme.javaee.domain.Post;
 
+@Singleton
 @Path("/post")
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
 @Produces({ MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
