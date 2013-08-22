@@ -1,11 +1,12 @@
 package com.acme.javaee.ws.rs;
 
+import java.net.URL;
 import java.util.logging.Logger;
 
-import javax.ejb.EJB;
-
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -13,6 +14,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.WebDriver;
 
 import com.acme.javaee.dao.DAO;
 import com.acme.javaee.dao.PostDAO;
@@ -40,18 +42,29 @@ public class PostServiceTest
     return archive;
   }
 
-  @EJB
-  private PostService postService;
+  @Drone
+  private WebDriver driver;
+
+  @ArquillianResource
+  private URL       url;
 
   @Test
-  public void testCreate1()
+  public void testInjectDrone1()
   {
-    Assert.assertNotNull(postService.create("title", "content", 1));
+    Assert.assertNotNull(driver);
   }
 
   @Test
-  public void testInject1()
+  public void testInjectUrl1()
   {
-    Assert.assertNotNull(postService);
+    Assert.assertNotNull(url);
+  }
+
+  @Test
+  public void testList1()
+  {
+    driver.get(url.toExternalForm() + "post/list");
+    LOG.info("GET: " + driver.getCurrentUrl());
+    Assert.assertEquals("{\"post\":[]}", driver.getPageSource());
   }
 }
