@@ -7,7 +7,6 @@ import javax.ejb.EJB;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -20,7 +19,6 @@ import com.acme.javaee.domain.Model;
 import com.acme.javaee.domain.Post;
 
 @RunWith(Arquillian.class)
-@Transactional
 public class PostDAOTest
 {
   private static final Logger LOG = Logger.getLogger(PostDAOTest.class
