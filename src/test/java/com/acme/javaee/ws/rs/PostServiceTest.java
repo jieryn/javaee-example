@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Logger;
 
+import org.apache.wink.client.ClientWebException;
 import org.apache.wink.client.RestClient;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -51,39 +52,44 @@ public class PostServiceTest
     return new URL(url, fragment).toExternalForm();
   }
 
-  @Test
+  @Test(expected = ClientWebException.class)
   public void testDelete1() throws MalformedURLException
   {
-    final String response = new RestClient().resource(
-        makePrefixedUrlString("post/delete/123")).delete(String.class);
+    LOG.info("testDelete1()");
 
-    Assert.assertNotNull(response);
-    Assert.assertEquals("{\"posts\":[]}", response);
+    new RestClient().resource(makePrefixedUrlString("post/delete/123")).delete(
+        String.class);
   }
 
   @Test
   public void testInjectUrl1()
   {
+    LOG.info("testInjectUrl1()");
+
     Assert.assertNotNull(url);
   }
 
   @Test
   public void testList1() throws MalformedURLException
   {
+    LOG.info("testList1()");
+
     final String response = new RestClient().resource(
         makePrefixedUrlString("post/list")).get(String.class);
 
     Assert.assertNotNull(response);
-    Assert.assertEquals("{\"posts\":[]}", response);
+    Assert.assertEquals("{\"post\":[]}", response);
   }
 
   @Test
   public void testShow1() throws MalformedURLException
   {
+    LOG.info("testShow1()");
+
     final String response = new RestClient().resource(
         makePrefixedUrlString("post/show/123")).get(String.class);
 
     Assert.assertNotNull(response);
-    Assert.assertEquals("{\"posts\":[]}", response);
+    Assert.assertEquals("", response);
   }
 }
