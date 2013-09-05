@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -43,14 +44,42 @@ public class PostDAOTest
   @Test
   public void testCreate1()
   {
+    LOG.info("testCreate1()");
+
     Assert.assertNotNull(postDAO.create("title1", "content1", 1));
     Assert.assertNotNull(postDAO.create("title2", "content2", 2));
     Assert.assertNotNull(postDAO.create("title3", "content3", 3));
   }
 
+  @Test(expected = EJBException.class)
+  public void testDelete1()
+  {
+    LOG.info("testDelete1()");
+
+    postDAO.delete((Post) null);
+  }
+
+  @Test(expected = EJBException.class)
+  public void testDelete2()
+  {
+    LOG.info("testDelete2()");
+
+    postDAO.delete(-1L);
+  }
+
+  @Test
+  public void testDelete3()
+  {
+    LOG.info("testDelete3()");
+
+    postDAO.delete(postDAO.create("title1", "content1", 1));
+  }
+
   @Test
   public void testFindAll1()
   {
+    LOG.info("testFindAll1()");
+
     final List<Post> result = postDAO.findAll();
 
     Assert.assertNotNull(result);
@@ -60,6 +89,8 @@ public class PostDAOTest
   @Test
   public void testFindAll2()
   {
+    LOG.info("testFindAll2()");
+
     Assert.assertNotNull(postDAO.create("title1", "content1", 1));
     Assert.assertNotNull(postDAO.create("title2", "content2", 2));
     Assert.assertNotNull(postDAO.create("title3", "content3", 3));
@@ -73,12 +104,32 @@ public class PostDAOTest
   @Test
   public void testFindById1()
   {
+    LOG.info("testFindById1()");
+
     Assert.assertNull(postDAO.findById(-1L));
   }
 
   @Test
   public void testInject1()
   {
+    LOG.info("testInject1()");
+
     Assert.assertNotNull(postDAO);
+  }
+
+  @Test(expected = EJBException.class)
+  public void testUpdate1()
+  {
+    LOG.info("testUpdate1()");
+
+    postDAO.update((Post) null);
+  }
+
+  @Test(expected = EJBException.class)
+  public void testUpdate2()
+  {
+    LOG.info("testUpdate2()");
+
+    postDAO.update(-1L, -1L, (String) null, (String) null);
   }
 }
