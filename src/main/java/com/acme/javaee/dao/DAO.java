@@ -99,6 +99,16 @@ public class DAO<T extends Model>
     return entityManager.find(entityBeanType, id);
   }
 
+  public long findTotal()
+  {
+    final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    final CriteriaQuery<Long> query = builder.createQuery(Long.class);
+
+    return entityManager.createQuery(
+        query.select(builder.count(query.from(entityBeanType))))
+        .getSingleResult();
+  }
+
   public void flush()
   {
     entityManager.flush();

@@ -12,7 +12,9 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -40,6 +42,20 @@ public class PostDAOTest
 
   @EJB
   private PostDAO postDAO;
+
+  @After
+  public void doAfter()
+  {
+    LOG.info("AFTER: " + postDAO.findTotal() + " : " + postDAO.findAll());
+    Assert.assertEquals(0, postDAO.findTotal());
+  }
+
+  @Before
+  public void doBefore()
+  {
+    LOG.info("BEFORE: " + postDAO.findTotal() + " : " + postDAO.findAll());
+    Assert.assertEquals(0, postDAO.findTotal());
+  }
 
   @Test
   public void testCreate1()

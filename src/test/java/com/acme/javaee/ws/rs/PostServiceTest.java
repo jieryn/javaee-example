@@ -4,6 +4,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
+
 import org.apache.wink.client.ClientWebException;
 import org.apache.wink.client.RestClient;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -13,7 +15,9 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -43,8 +47,25 @@ public class PostServiceTest
     return archive;
   }
 
+  @EJB
+  private PostDAO postDAO;
+
   @ArquillianResource
-  private URL url;
+  private URL     url;
+
+  @After
+  public void doAfter()
+  {
+    LOG.info("AFTER: " + postDAO.findTotal() + " : " + postDAO.findAll());
+    Assert.assertEquals(0, postDAO.findTotal());
+  }
+
+  @Before
+  public void doBefore()
+  {
+    LOG.info("BEFORE: " + postDAO.findTotal() + " : " + postDAO.findAll());
+    Assert.assertEquals(0, postDAO.findTotal());
+  }
 
   private String makePrefixedUrlString(final String fragment)
       throws MalformedURLException
