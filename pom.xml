@@ -113,7 +113,6 @@
             <tomee.httpPort>-1</tomee.httpPort>
             <tomee.stopPort>-1</tomee.stopPort>
           </systemPropertyVariables>
-          <testFailureIgnore>true</testFailureIgnore>
         </configuration>
       </plugin>
       <plugin>
