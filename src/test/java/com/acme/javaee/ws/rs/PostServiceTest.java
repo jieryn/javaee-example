@@ -17,9 +17,7 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -56,20 +54,6 @@ public class PostServiceTest
   @ArquillianResource
   private URL     url;
 
-  @After
-  public void doAfter()
-  {
-    LOG.info("AFTER: " + postDAO.findTotal() + " : " + postDAO.findAll());
-    Assert.assertEquals(0, postDAO.findTotal());
-  }
-
-  @Before
-  public void doBefore()
-  {
-    LOG.info("BEFORE: " + postDAO.findTotal() + " : " + postDAO.findAll());
-    Assert.assertEquals(0, postDAO.findTotal());
-  }
-
   private String makePrefixedUrlString(final String fragment)
       throws MalformedURLException
   {
@@ -81,6 +65,8 @@ public class PostServiceTest
   {
     LOG.info("testDelete1()");
 
+    Assert.assertEquals(0, postDAO.findTotal());
+
     new RestClient().resource(makePrefixedUrlString("post/delete/123")).delete(
         String.class);
   }
@@ -90,6 +76,8 @@ public class PostServiceTest
   {
     LOG.info("testInjectUrl1()");
 
+    Assert.assertEquals(0, postDAO.findTotal());
+
     Assert.assertNotNull(url);
   }
 
@@ -97,6 +85,8 @@ public class PostServiceTest
   public void testList1() throws MalformedURLException
   {
     LOG.info("testList1()");
+
+    Assert.assertEquals(0, postDAO.findTotal());
 
     final String response = new RestClient().resource(
         makePrefixedUrlString("post/list")).get(String.class);
@@ -109,6 +99,8 @@ public class PostServiceTest
   public void testShow1() throws MalformedURLException
   {
     LOG.info("testShow1()");
+
+    Assert.assertEquals(0, postDAO.findTotal());
 
     final String response = new RestClient().resource(
         makePrefixedUrlString("post/show/123")).get(String.class);

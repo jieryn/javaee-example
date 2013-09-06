@@ -14,9 +14,7 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -46,20 +44,6 @@ public class PostDAOTest
   @EJB
   private PostDAO postDAO;
 
-  @After
-  public void doAfter()
-  {
-    LOG.info("AFTER: " + postDAO.findTotal() + " : " + postDAO.findAll());
-    Assert.assertEquals(0, postDAO.findTotal());
-  }
-
-  @Before
-  public void doBefore()
-  {
-    LOG.info("BEFORE: " + postDAO.findTotal() + " : " + postDAO.findAll());
-    Assert.assertEquals(0, postDAO.findTotal());
-  }
-
   @Test
   public void testCreate1()
   {
@@ -75,6 +59,8 @@ public class PostDAOTest
   {
     LOG.info("testDelete1()");
 
+    Assert.assertEquals(0, postDAO.findTotal());
+
     postDAO.delete((Post) null);
   }
 
@@ -82,6 +68,8 @@ public class PostDAOTest
   public void testDelete2()
   {
     LOG.info("testDelete2()");
+
+    Assert.assertEquals(0, postDAO.findTotal());
 
     postDAO.delete(-1L);
   }
@@ -91,6 +79,8 @@ public class PostDAOTest
   {
     LOG.info("testDelete3()");
 
+    Assert.assertEquals(0, postDAO.findTotal());
+
     postDAO.delete(postDAO.create("title1", "content1", 1));
   }
 
@@ -98,6 +88,8 @@ public class PostDAOTest
   public void testFindAll1()
   {
     LOG.info("testFindAll1()");
+
+    Assert.assertEquals(0, postDAO.findTotal());
 
     final List<Post> result = postDAO.findAll();
 
@@ -109,6 +101,8 @@ public class PostDAOTest
   public void testFindAll2()
   {
     LOG.info("testFindAll2()");
+
+    Assert.assertEquals(0, postDAO.findTotal());
 
     Assert.assertNotNull(postDAO.create("title1", "content1", 1));
     Assert.assertNotNull(postDAO.create("title2", "content2", 2));
@@ -124,6 +118,8 @@ public class PostDAOTest
   public void testFindById1()
   {
     LOG.info("testFindById1()");
+
+    Assert.assertEquals(0, postDAO.findTotal());
 
     Assert.assertNull(postDAO.findById(-1L));
   }
@@ -141,6 +137,8 @@ public class PostDAOTest
   {
     LOG.info("testUpdate1()");
 
+    Assert.assertEquals(0, postDAO.findTotal());
+
     postDAO.update((Post) null);
   }
 
@@ -148,6 +146,8 @@ public class PostDAOTest
   public void testUpdate2()
   {
     LOG.info("testUpdate2()");
+
+    Assert.assertEquals(0, postDAO.findTotal());
 
     postDAO.update(-1L, -1L, (String) null, (String) null);
   }
