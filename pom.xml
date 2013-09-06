@@ -9,36 +9,10 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <!--
     <openejb.version>4.6.0.beta1</openejb.version>
     <openjpa.version>2.2.2</openjpa.version>
     <tomee.version>1.6.0.beta1</tomee.version>
-    -->
-    <openejb.version>4.6.1-SNAPSHOT</openejb.version>
-    <openjpa.version>2.3.0-SNAPSHOT</openjpa.version>
-    <tomee.version>1.6.1-SNAPSHOT</tomee.version>
   </properties>
-
-  <repositories>
-    <repository>
-      <id>apache-m2-snapshot</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://repository.apache.org/snapshots</url>
-    </repository>
-    <repository>
-      <id>tomcat-m2-repo</id>
-      <name>Tomcat Dev Repository</name>
-      <url>http://tomcat.apache.org/dev/dist/m2-repository/</url>
-    </repository>
-  </repositories>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>apache-m2-snapshot</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://repository.apache.org/snapshots</url>
-    </pluginRepository>
-  </pluginRepositories>
 
   <dependencies>
     <dependency>
