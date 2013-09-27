@@ -62,10 +62,10 @@ public class UserDAOTest
   {
     LOG.info("testCreate2()");
 
-    Assert.assertNotNull(userDAO.create("username", "password",
-        "username@email.com"));
     userDAO.create("username", "password", "username@email.com");
-    Assert.fail("should have taken UniqueConstraint validation error");
+    userDAO.create("username", "password", "username@email.com");
+
+    userDAO.flush();
   }
 
   @Test(expected = EJBException.class)
