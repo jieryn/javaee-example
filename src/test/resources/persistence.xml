@@ -8,7 +8,7 @@
     <class>com.acme.javaee.domain.User</class>
     <properties>
       <property name="openjpa.ConnectionFactoryProperties" value="PrintParameters=true" />
-      <property name="openjpa.Log" value="SQL=Trace" />
+      <property name="openjpa.Log" value="SQL=Info" />
       <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)" />
     </properties>
   </persistence-unit>
