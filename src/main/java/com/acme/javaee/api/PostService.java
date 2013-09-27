@@ -1,4 +1,4 @@
-package com.acme.javaee.ws.rs;
+package com.acme.javaee.api;
 
 import java.util.List;
 
@@ -15,24 +15,25 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.acme.javaee.dao.UserDAO;
-import com.acme.javaee.domain.User;
+import com.acme.javaee.dao.PostDAO;
+import com.acme.javaee.domain.Post;
 
 @Singleton
-@Path("/user")
+@Path("/post")
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
 @Produces({ MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
-public class UserService
+public class PostService
 {
   @EJB
-  private UserDAO dao;
+  private PostDAO dao;
 
   @Path("/create")
   @PUT
-  public User create(@QueryParam("name") final String name,
-      @QueryParam("pwd") final String pwd, @QueryParam("mail") final String mail)
+  public Post create(@QueryParam("title") final String title,
+      @QueryParam("content") final String content,
+      @QueryParam("userId") final long userId)
   {
-    return dao.create(name, pwd, mail);
+    return dao.create(title, content, userId);
   }
 
   @Path("/delete/{id}")
@@ -44,24 +45,25 @@ public class UserService
 
   @Path("/list")
   @GET
-  public List<User> list()
+  public List<Post> list()
   {
     return dao.findAll();
   }
 
   @Path("/show/{id}")
   @GET
-  public User show(@PathParam("id") final long id)
+  public Post show(@PathParam("id") final long id)
   {
     return dao.findById(id);
   }
 
   @Path("/update/{id}")
   @POST
-  public User update(@PathParam("id") final long id,
-      @QueryParam("name") final String name,
-      @QueryParam("pwd") final String pwd, @QueryParam("mail") final String mail)
+  public Post update(@PathParam("id") final long id,
+      @QueryParam("userId") final long userId,
+      @QueryParam("title") final String title,
+      @QueryParam("content") final String content)
   {
-    return dao.update(id, name, pwd, mail);
+    return dao.update(id, userId, title, content);
   }
 }

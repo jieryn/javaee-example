@@ -1,4 +1,4 @@
-package com.acme.javaee.ws.rs;
+package com.acme.javaee.api;
 
 import java.net.MalformedURLException;
 import java.net.URL;
