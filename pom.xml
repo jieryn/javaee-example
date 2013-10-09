@@ -13,6 +13,7 @@
     <openejb.version>4.6.0-SNAPSHOT</openejb.version>
     <openjpa.version>2.2.2</openjpa.version>
     <tomee.version>1.6.0-SNAPSHOT</tomee.version>
+    <jacoco.version>0.6.2.201302030002</jacoco.version>
   </properties>
 
   <dependencyManagement>
@@ -41,6 +42,12 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
+    <dependency>
+      <groupId>org.jacoco</groupId>
+      <artifactId>org.jacoco.core</artifactId>
+      <version>${jacoco.version}</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -88,7 +95,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.6.2.201302030002</version>
+        <version>${jacoco.version}</version>
         <executions>
           <execution>
             <id>prepare-agent</id>
