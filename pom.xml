@@ -231,6 +231,9 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>openjpa-maven-plugin</artifactId>
         <version>1.2</version>
+        <configuration>
+          <persistenceXmlFile>${project.basedir}/src/main/webapp/WEB-INF/persistence.xml</persistenceXmlFile>
+        </configuration>
         <executions>
           <execution>
             <phase>process-classes</phase>
