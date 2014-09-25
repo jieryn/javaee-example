@@ -6,11 +6,17 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
+import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.acme.javaee.domain.Post;
 
+@RunWith(Arquillian.class)
+@Transactional(TransactionMode.ROLLBACK)
 public class PostDAOTest extends AbstractDAOTest
 {
   private static final Logger LOG = Logger.getLogger(PostDAOTest.class
