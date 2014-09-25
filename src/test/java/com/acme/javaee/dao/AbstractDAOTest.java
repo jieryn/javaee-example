@@ -2,6 +2,8 @@ package com.acme.javaee.dao;
 
 import java.util.logging.Logger;
 
+import com.acme.javaee.api.Application;
+import com.acme.javaee.domain.User;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
@@ -28,7 +30,7 @@ public class AbstractDAOTest
     final Archive<?> archive = ShrinkWrap.create(JavaArchive.class)
         .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
         .addAsManifestResource("persistence.xml")
-        .addClasses(DAO.class, Model.class, Post.class, PostDAO.class);
+        .addClasses(DAO.class, Model.class, Post.class, PostDAO.class, Application.class, UserDAO.class, User.class);
 
     LOG.info("DEPLOYMENT: " + archive.toString(true));
 
