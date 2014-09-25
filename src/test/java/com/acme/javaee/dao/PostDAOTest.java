@@ -6,43 +6,18 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
-import org.jboss.arquillian.transaction.api.annotation.Transactional;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import com.acme.javaee.domain.Model;
 import com.acme.javaee.domain.Post;
 
-@RunWith(Arquillian.class)
-@Transactional(TransactionMode.ROLLBACK)
-public class PostDAOTest
+public class PostDAOTest extends AbstractDAOTest
 {
   private static final Logger LOG = Logger.getLogger(PostDAOTest.class
                                       .getName());
 
-  @Deployment
-  public static Archive<?> createDeployment()
-  {
-    final Archive<?> archive = ShrinkWrap.create(JavaArchive.class)
-        .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
-        .addAsManifestResource("persistence.xml")
-        .addClasses(DAO.class, Model.class, Post.class, PostDAO.class);
-
-    LOG.info("DEPLOYMENT: " + archive.toString(true));
-
-    return archive;
-  }
-
   @EJB
-  private PostDAO postDAO;
+  private PostDAO             postDAO;
 
   @Test
   public void testCreate1()
