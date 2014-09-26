@@ -30,6 +30,18 @@ public class PostDAOTest extends AbstractDAOTest
   {
     LOG.info("testCreate1()");
 
+    final Post created = postDAO.create("title1", "content1", 1);
+
+    Assert.assertNotNull(created);
+    Assert.assertNotNull(created.getId());
+    Assert.assertNotNull(created.getUpdated());
+  }
+
+  @Test
+  public void testCreate2()
+  {
+    LOG.info("testCreate2()");
+
     Assert.assertNotNull(postDAO.create("title1", "content1", 1));
     Assert.assertNotNull(postDAO.create("title2", "content2", 2));
     Assert.assertNotNull(postDAO.create("title3", "content3", 3));

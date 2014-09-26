@@ -1,5 +1,7 @@
 package com.acme.javaee.base;
 
+import java.util.Date;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -23,6 +29,9 @@ public abstract class Model
   @GeneratedValue(strategy = GenerationType.TABLE)
   private Long id;
 
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date updated;
+
   @Version
   @Transient
   private Long version;
@@ -32,18 +41,20 @@ public abstract class Model
     return id;
   }
 
+  public Date getUpdated()
+  {
+    return updated;
+  }
+
   public Long getVersion()
   {
     return version;
   }
 
-  public void setId(final Long id)
+  @PrePersist
+  @PreUpdate
+  public void updateUpdated()
   {
-    this.id = id;
-  }
-
-  public void setVersion(final Long version)
-  {
-    this.version = version;
+    updated = new Date();
   }
 }
