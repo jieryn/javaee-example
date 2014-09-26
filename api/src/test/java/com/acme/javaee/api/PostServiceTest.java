@@ -2,48 +2,25 @@ package com.acme.javaee.api;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 
 import org.apache.wink.client.ClientWebException;
 import org.apache.wink.client.RestClient;
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
 import org.jboss.arquillian.transaction.api.annotation.Transactional;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.acme.javaee.base.DAO;
-import com.acme.javaee.base.Model;
 import com.acme.javaee.dao.PostDAO;
-import com.acme.javaee.domain.Post;
 
 @RunWith(Arquillian.class)
 @Transactional(TransactionMode.ROLLBACK)
-public class PostServiceTest
+public class PostServiceTest extends AbstractServiceTest
 {
-  private static final Logger LOG = Logger.getLogger(PostServiceTest.class
-                                      .getName());
-
-  @Deployment
-  public static Archive<?> createDeployment()
-  {
-    return ShrinkWrap
-        .create(WebArchive.class)
-        .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-        .addAsManifestResource("persistence.xml")
-        .addClasses(DAO.class, Model.class, Post.class, PostDAO.class,
-            PostService.class);
-  }
-
   @EJB
   private PostDAO postDAO;
 
@@ -59,8 +36,6 @@ public class PostServiceTest
   @Test(expected = ClientWebException.class)
   public void testDelete1() throws MalformedURLException
   {
-    LOG.info("testDelete1()");
-
     Assert.assertEquals(0, postDAO.findTotal());
 
     new RestClient().resource(makePrefixedUrlString("posts/123")).delete(
@@ -70,18 +45,12 @@ public class PostServiceTest
   @Test
   public void testInjectUrl1()
   {
-    LOG.info("testInjectUrl1()");
-
-    Assert.assertEquals(0, postDAO.findTotal());
-
     Assert.assertNotNull(url);
   }
 
   @Test
   public void testList1() throws MalformedURLException
   {
-    LOG.info("testList1()");
-
     Assert.assertEquals(0, postDAO.findTotal());
 
     final String response = new RestClient().resource(
@@ -94,8 +63,6 @@ public class PostServiceTest
   @Test
   public void testShow1() throws MalformedURLException
   {
-    LOG.info("testShow1()");
-
     Assert.assertEquals(0, postDAO.findTotal());
 
     final String response = new RestClient().resource(
