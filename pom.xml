@@ -6,7 +6,18 @@
   <groupId>com.acme</groupId>
   <artifactId>javaee</artifactId>
   <version>1-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <packaging>pom</packaging>
+
+  <name>${project.groupId}:${project.artifactId}</name>
+
+  <modules>
+    <module>api</module>
+    <module>base</module>
+    <module>dao</module>
+    <module>domain</module>
+    <module>timer</module>
+    <module>war</module>
+  </modules>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -29,6 +40,37 @@
         <version>1.0.1.Final</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.acme.javaee</groupId>
+        <artifactId>api</artifactId>
+        <version>1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.acme.javaee</groupId>
+        <artifactId>dao</artifactId>
+        <version>1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.acme.javaee</groupId>
+        <artifactId>domain</artifactId>
+        <version>1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.acme.javaee</groupId>
+        <artifactId>base</artifactId>
+        <version>1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.acme.javaee</groupId>
+        <artifactId>timer</artifactId>
+        <version>1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.acme.javaee</groupId>
+        <artifactId>war</artifactId>
+        <version>1-SNAPSHOT</version>
+        <type>war</type>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -93,48 +135,51 @@
 
   <build>
     <defaultGoal>install</defaultGoal>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
-        <configuration>
-          <forceJavacCompilerUse>true</forceJavacCompilerUse>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.15</version>
-        <configuration>
-          <systemPropertyVariables>
-            <maven-surefire-plugin.execution>true</maven-surefire-plugin.execution>
-            <tomee.embedded.httpPort>-1</tomee.embedded.httpPort>
-            <tomee.embedded.stopPort>-1</tomee.embedded.stopPort>
-            <tomee.httpPort>-1</tomee.httpPort>
-            <tomee.stopPort>-1</tomee.stopPort>
-          </systemPropertyVariables>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>2.4</version>
-        <configuration>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.openejb.maven</groupId>
-        <artifactId>tomee-maven-plugin</artifactId>
-        <version>${tomee.version}</version>
-        <configuration>
-          <classifier>exec-war</classifier>
-          <password>tomee</password>
-          <tomeeClassifier>plus</tomeeClassifier>
-          <tomeeVersion>${tomee.version}</tomeeVersion>
-          <user>tomee</user>
-        </configuration>
-      </plugin>
-    </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.1</version>
+          <configuration>
+            <forceJavacCompilerUse>true</forceJavacCompilerUse>
+            <source>1.7</source>
+            <target>1.7</target>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.15</version>
+          <configuration>
+            <systemPropertyVariables>
+              <maven-surefire-plugin.execution>true</maven-surefire-plugin.execution>
+              <tomee.embedded.httpPort>-1</tomee.embedded.httpPort>
+              <tomee.embedded.stopPort>-1</tomee.embedded.stopPort>
+              <tomee.httpPort>-1</tomee.httpPort>
+              <tomee.stopPort>-1</tomee.stopPort>
+            </systemPropertyVariables>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>2.4</version>
+          <configuration>
+            <failOnMissingWebXml>false</failOnMissingWebXml>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.openejb.maven</groupId>
+          <artifactId>tomee-maven-plugin</artifactId>
+          <version>${tomee.version}</version>
+          <configuration>
+            <classifier>exec-war</classifier>
+            <password>tomee</password>
+            <tomeeClassifier>plus</tomeeClassifier>
+            <tomeeVersion>${tomee.version}</tomeeVersion>
+            <user>tomee</user>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
+
 </project>
