@@ -172,6 +172,7 @@
           <version>${tomee.version}</version>
           <configuration>
             <classifier>exec-war</classifier>
+            <context>ROOT</context>
             <password>tomee</password>
             <tomeeClassifier>plus</tomeeClassifier>
             <tomeeVersion>${tomee.version}</tomeeVersion>

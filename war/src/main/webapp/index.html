@@ -1,25 +1,24 @@
 <html>
 <body>
-  <h1>org.apache.openejb.server.cxf.rs.CxfRsHttpListener</h1>
   <pre>
-REST Application: http://localhost:8080/javaee-1-SNAPSHOT/api                       -&gt; com.acme.javaee.ws.rs.Application
-     Service URI: http://localhost:8080/javaee-1-SNAPSHOT/api/comment               -&gt; Pojo com.acme.javaee.ws.rs.CommentService
-           DELETE http://localhost:8080/javaee-1-SNAPSHOT/api/comment/delete/{id}   -&gt;      void delete(long)
-              GET http://localhost:8080/javaee-1-SNAPSHOT/api/comment/list/{postId} -&gt;      List&lt;Comment&gt; list(long)
-             POST http://localhost:8080/javaee-1-SNAPSHOT/api/comment/update/{id}   -&gt;      Comment update(long, String, String)
-              PUT http://localhost:8080/javaee-1-SNAPSHOT/api/comment/create        -&gt;      Comment create(String, String, long)
-     Service URI: http://localhost:8080/javaee-1-SNAPSHOT/api/post                  -&gt; Pojo com.acme.javaee.ws.rs.PostService
-           DELETE http://localhost:8080/javaee-1-SNAPSHOT/api/post/delete/{id}      -&gt;      void delete(long)
-              GET http://localhost:8080/javaee-1-SNAPSHOT/api/post/list             -&gt;      List&lt;Post&gt; list()
-              GET http://localhost:8080/javaee-1-SNAPSHOT/api/post/show/{id}        -&gt;      Post show(long)
-             POST http://localhost:8080/javaee-1-SNAPSHOT/api/post/update/{id}      -&gt;      Post update(long, long, String, String)
-              PUT http://localhost:8080/javaee-1-SNAPSHOT/api/post/create           -&gt;      Post create(String, String, long)
-     Service URI: http://localhost:8080/javaee-1-SNAPSHOT/api/user                  -&gt; Pojo com.acme.javaee.ws.rs.UserService
-           DELETE http://localhost:8080/javaee-1-SNAPSHOT/api/user/delete/{id}      -&gt;      void delete(long)
-              GET http://localhost:8080/javaee-1-SNAPSHOT/api/user/list             -&gt;      List&lt;User&gt; list()
-              GET http://localhost:8080/javaee-1-SNAPSHOT/api/user/show/{id}        -&gt;      User show(long)
-             POST http://localhost:8080/javaee-1-SNAPSHOT/api/user/update/{id}      -&gt;      User update(long, String, String, String)
-              PUT http://localhost:8080/javaee-1-SNAPSHOT/api/user/create           -&gt;      User create(String, String, String)
+REST Application: http://localhost:8080/api                   -&gt; com.acme.javaee.api.Application
+     Service URI: http://localhost:8080/api/comments          -&gt; EJB com.acme.javaee.ws.rs.CommentService
+           DELETE http://localhost:8080/api/comments/{id}     -&gt;     void delete(long)
+              GET http://localhost:8080/api/comments/{postId} -&gt;     List&lt;Comment&gt; list(long)
+             POST http://localhost:8080/api/comments/{id}     -&gt;     Comment update(long, String, String)
+              PUT http://localhost:8080/api/comments          -&gt;     Comment create(String, String, long)
+     Service URI: http://localhost:8080/api/posts             -&gt; EJB com.acme.javaee.ws.rs.PostService
+           DELETE http://localhost:8080/api/posts/{id}        -&gt;     void delete(long)
+              GET http://localhost:8080/api/posts             -&gt;     List&lt;Post&gt; list()
+              GET http://localhost:8080/api/posts/{id}        -&gt;     Post show(long)
+             POST http://localhost:8080/api/posts/{id}        -&gt;     Post update(long, long, String, String)
+              PUT http://localhost:8080/api/posts             -&gt;     Post create(String, String, long)
+     Service URI: http://localhost:8080/api/users             -&gt; EJB com.acme.javaee.ws.rs.UserService
+           DELETE http://localhost:8080/api/users/{id}        -&gt;     void delete(long)
+              GET http://localhost:8080/api/users             -&gt;     List&lt;User&gt; list()
+              GET http://localhost:8080/api/users/{id}        -&gt;     User show(long)
+             POST http://localhost:8080/api/users/{id}        -&gt;     User update(long, String, String, String)
+              PUT http://localhost:8080/api/users             -&gt;     User create(String, String, String)
   </pre>
 </body>
 </html>
