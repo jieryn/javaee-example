@@ -36,16 +36,12 @@ public class PostServiceTest
   @Deployment
   public static Archive<?> createDeployment()
   {
-    final Archive<?> archive = ShrinkWrap
+    return ShrinkWrap
         .create(WebArchive.class)
         .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
         .addAsManifestResource("persistence.xml")
         .addClasses(DAO.class, Model.class, Post.class, PostDAO.class,
             PostService.class);
-
-    LOG.info("DEPLOYMENT: " + archive.toString(true));
-
-    return archive;
   }
 
   @EJB
@@ -67,7 +63,7 @@ public class PostServiceTest
 
     Assert.assertEquals(0, postDAO.findTotal());
 
-    new RestClient().resource(makePrefixedUrlString("post/delete/123")).delete(
+    new RestClient().resource(makePrefixedUrlString("posts/123")).delete(
         String.class);
   }
 
@@ -89,7 +85,7 @@ public class PostServiceTest
     Assert.assertEquals(0, postDAO.findTotal());
 
     final String response = new RestClient().resource(
-        makePrefixedUrlString("post/list")).get(String.class);
+        makePrefixedUrlString("posts")).get(String.class);
 
     Assert.assertNotNull(response);
     Assert.assertEquals("{\"post\":[]}", response);
@@ -103,7 +99,7 @@ public class PostServiceTest
     Assert.assertEquals(0, postDAO.findTotal());
 
     final String response = new RestClient().resource(
-        makePrefixedUrlString("post/show/123")).get(String.class);
+        makePrefixedUrlString("posts/123")).get(String.class);
 
     Assert.assertNotNull(response);
     Assert.assertEquals("", response);

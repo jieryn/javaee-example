@@ -19,7 +19,7 @@ import com.acme.javaee.dao.UserDAO;
 import com.acme.javaee.domain.User;
 
 @Singleton
-@Path("/user")
+@Path("/users")
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
 @Produces({ MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
 public class UserService
@@ -27,7 +27,6 @@ public class UserService
   @EJB
   private UserDAO dao;
 
-  @Path("/create")
   @PUT
   public User create(@QueryParam("name") final String name,
       @QueryParam("pwd") final String pwd, @QueryParam("mail") final String mail)
@@ -35,28 +34,27 @@ public class UserService
     return dao.create(name, pwd, mail);
   }
 
-  @Path("/delete/{id}")
+  @Path("{id}")
   @DELETE
   public void delete(@PathParam("id") final long id)
   {
     dao.delete(id);
   }
 
-  @Path("/list")
   @GET
   public List<User> list()
   {
     return dao.findAll();
   }
 
-  @Path("/show/{id}")
+  @Path("{id}")
   @GET
   public User show(@PathParam("id") final long id)
   {
     return dao.findById(id);
   }
 
-  @Path("/update/{id}")
+  @Path("{id}")
   @POST
   public User update(@PathParam("id") final long id,
       @QueryParam("name") final String name,

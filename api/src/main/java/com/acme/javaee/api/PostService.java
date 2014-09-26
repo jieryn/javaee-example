@@ -19,7 +19,7 @@ import com.acme.javaee.dao.PostDAO;
 import com.acme.javaee.domain.Post;
 
 @Singleton
-@Path("/post")
+@Path("/posts")
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
 @Produces({ MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
 public class PostService
@@ -27,7 +27,6 @@ public class PostService
   @EJB
   private PostDAO dao;
 
-  @Path("/create")
   @PUT
   public Post create(@QueryParam("title") final String title,
       @QueryParam("content") final String content,
@@ -36,28 +35,27 @@ public class PostService
     return dao.create(title, content, userId);
   }
 
-  @Path("/delete/{id}")
+  @Path("{id}")
   @DELETE
   public void delete(@PathParam("id") final long id)
   {
     dao.delete(id);
   }
 
-  @Path("/list")
   @GET
   public List<Post> list()
   {
     return dao.findAll();
   }
 
-  @Path("/show/{id}")
+  @Path("{id}")
   @GET
   public Post show(@PathParam("id") final long id)
   {
     return dao.findById(id);
   }
 
-  @Path("/update/{id}")
+  @Path("{id}")
   @POST
   public Post update(@PathParam("id") final long id,
       @QueryParam("userId") final long userId,

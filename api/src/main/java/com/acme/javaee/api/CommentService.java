@@ -19,7 +19,7 @@ import com.acme.javaee.dao.CommentDAO;
 import com.acme.javaee.domain.Comment;
 
 @Singleton
-@Path("/comment")
+@Path("/comments")
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
 @Produces({ MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
 public class CommentService
@@ -27,7 +27,6 @@ public class CommentService
   @EJB
   private CommentDAO commentDao;
 
-  @Path("/create")
   @PUT
   public Comment create(@QueryParam("author") final String author,
       @QueryParam("content") final String content,
@@ -36,21 +35,21 @@ public class CommentService
     return commentDao.create(author, content, postId);
   }
 
-  @Path("/delete/{id}")
+  @Path("{id}")
   @DELETE
   public void delete(@PathParam("id") final long id)
   {
     commentDao.delete(id);
   }
 
-  @Path("/list/{postId}")
+  @Path("{postId}")
   @GET
   public List<Comment> list(@PathParam("postId") final long postId)
   {
     return commentDao.list(postId);
   }
 
-  @Path("/update/{id}")
+  @Path("{id}")
   @POST
   public Comment update(@PathParam("id") final long id,
       @QueryParam("author") final String author,
