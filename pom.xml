@@ -115,6 +115,7 @@
       <groupId>org.apache.wink</groupId>
       <artifactId>wink-client</artifactId>
       <version>1.4</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.jboss.arquillian.extension</groupId>
