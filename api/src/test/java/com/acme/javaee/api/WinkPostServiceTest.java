@@ -2,33 +2,24 @@ package com.acme.javaee.api;
 
 import java.net.MalformedURLException;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-
+import org.apache.wink.client.ClientWebException;
+import org.apache.wink.client.RestClient;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
-public class PostServiceTest extends AbstractServiceTest
+/**
+ * @deprecated use shiny new JAX-RS 2.0 Client API
+ */
+@Deprecated
+public class WinkPostServiceTest extends AbstractServiceTest
 {
-  private Client    client;
-
-  private WebTarget target;
-
-  @Before
-  public void before() throws MalformedURLException
-  {
-    client = ClientBuilder.newClient();
-    target = client.target(makePrefixedUrlString("api"));
-  }
-
-  @Test(expected = NullPointerException.class)
+  @Test(expected = ClientWebException.class)
   public void testDelete1() throws MalformedURLException
   {
     Assert.assertEquals(0, postDAO.findTotal());
 
-    target.path("posts/123").request().delete(String.class);
+    new RestClient().resource(makePrefixedUrlString("api", "posts", "123"))
+        .delete(String.class);
   }
 
   @Test
@@ -42,7 +33,8 @@ public class PostServiceTest extends AbstractServiceTest
   {
     Assert.assertEquals(0, postDAO.findTotal());
 
-    final String response = target.path("posts").request().get(String.class);
+    final String response = new RestClient().resource(
+        makePrefixedUrlString("api", "posts")).get(String.class);
 
     Assert.assertNotNull(response);
     Assert.assertEquals("{\"post\":[]}", response);
@@ -53,8 +45,8 @@ public class PostServiceTest extends AbstractServiceTest
   {
     Assert.assertEquals(0, postDAO.findTotal());
 
-    final String response = target.path("posts/123").request()
-        .get(String.class);
+    final String response = new RestClient().resource(
+        makePrefixedUrlString("api", "posts", "123")).get(String.class);
 
     Assert.assertNotNull(response);
     Assert.assertEquals("", response);
